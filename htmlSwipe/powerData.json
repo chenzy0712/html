@@ -1,0 +1,59 @@
+{
+	"data": {
+        "returnCode": "0000",
+        "returnMsg": "操作成功",
+        "requestCode": "GDT08116",
+		"amtLists": {
+			"amtList": [{
+				"amtYm": "201601",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			},
+			{
+				"amtYm": "201602",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			},
+			{
+				"amtYm": "201603",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			},
+			{
+				"amtYm": "201604",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			},
+			{
+				"amtYm": "201605",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			},
+			{
+				"amtYm": "201606",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			},
+			{
+				"amtYm": "201607",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			},
+			{
+				"amtYm": "201608",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			},
+			{
+				"amtYm": "201609",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			},
+			{
+				"amtYm": "201610",
+				"tolAmt": "1000",
+				"tolElec": "1000"
+			}]
+		}
+	}
+}
