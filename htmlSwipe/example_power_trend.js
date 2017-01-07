@@ -55,13 +55,16 @@ $(function (data, type) {
         timezoneOffset: -8
     });
 
-   jsonString = '{"data":{"type":"tolAmt","returnMsg":"操作成功","requestCode":"GDT08116","amtLists":{"amtList":[{"amtYm":"201601","tolAmt":"2000.89999999999","tolElec":"400000"},{"amtYm":"201602","tolAmt":"900.12","tolElec":"10000"},{"amtYm":"201603","tolAmt":"4000.26","tolElec":"38900"},{"amtYm":"201604","tolAmt":"11000.11","tolElec":"19900"},{"amtYm":"201605","tolAmt":"40012.01","tolElec":"3400"},{"amtYm":"201606","tolAmt":"1000.01","tolElec":"10300"},{"amtYm":"201607","tolAmt":"20012.10","tolElec":"50101"},{"amtYm":"201608","tolAmt":"8000.1","tolElec":"4000"},{"amtYm":"201609","tolAmt":"2000.99","tolElec":"34000"},{"amtYm":"201610","tolAmt":"3000.99","tolElec":"7800"}]}}}';
-    var obj = jQuery.parseJSON(jsonString);
+   jsonString = 'tolAmt@{"data":{"type":"000","returnMsg":"操作成功","requestCode":"GDT08116","amtLists":{"amtList":[{"amtYm":"201601","tolAmt":"2000.89999999999","tolElec":"400000"},{"amtYm":"201602","tolAmt":"900.12","tolElec":"10000"},{"amtYm":"201603","tolAmt":"4000.26","tolElec":"38900"},{"amtYm":"201604","tolAmt":"11000.11","tolElec":"19900"},{"amtYm":"201605","tolAmt":"40012.01","tolElec":"3400"},{"amtYm":"201606","tolAmt":"1000.01","tolElec":"10300"},{"amtYm":"201607","tolAmt":"20012.10","tolElec":"50101"},{"amtYm":"201608","tolAmt":"8000.1","tolElec":"4000"},{"amtYm":"201609","tolAmt":"2000.99","tolElec":"34000"},{"amtYm":"201610","tolAmt":"3000.99","tolElec":"7800"}]}}}';
+    var dataArray = jsonString.split("@");
+	var obj = jQuery.parseJSON(dataArray[1]);
+	console.log(obj);
+	
 	// console.log(obj.data.amtLists);
 	var tolAmtArray = generateAmtArray(obj.data.amtLists.amtList);
 	var tolElecArray = generatePowerArray(obj.data.amtLists.amtList);
 	var ymArray = generateYmArray(obj.data.amtLists.amtList);
-	var type = obj.data.type;
+	var type = dataArray[0];
 	console.log(tolAmtArray);
 // 	console.log(tolElecArray);
 // 	console.log(ymArray);
