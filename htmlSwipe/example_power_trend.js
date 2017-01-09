@@ -2,7 +2,7 @@ function generateAmtArray(amtLists) {
 	var tolAmtArray = [];
 	
 	for (var i = 0; i < amtLists.length; i++) {
-		tolAmtArray[i] = parseFloat(amtLists[i].tolAmt);
+		tolAmtArray[i] = Number((parseFloat(amtLists[i].tolAmt)).toFixed(2));//保留两位小数
 	}
 	
 	return tolAmtArray;
@@ -22,7 +22,7 @@ function generateYmArray(amtLists) {
 	var ymArray = [];
 	
 	for (var i = 0; i < amtLists.length; i++) {
-		ymArray[i] = amtLists[i].amtYm;
+		ymArray[i] = amtLists[i].amtYm.slice(-2);//删除年份，X轴仅展示月
 	}
 	
 	return ymArray;
@@ -50,12 +50,12 @@ function getYaxisData(type, tolAmt, tolElec) {
 	}
 }
 
-$(function (data, type) {
+$(function (data) {
     Highcharts.setOptions({
         timezoneOffset: -8
     });
 
-   jsonString = 'tolAmt@{"data":{"type":"000","returnMsg":"操作成功","requestCode":"GDT08116","amtLists":{"amtList":[{"amtYm":"201601","tolAmt":"2000.89999999999","tolElec":"400000"},{"amtYm":"201602","tolAmt":"900.12","tolElec":"10000"},{"amtYm":"201603","tolAmt":"4000.26","tolElec":"38900"},{"amtYm":"201604","tolAmt":"11000.11","tolElec":"19900"},{"amtYm":"201605","tolAmt":"40012.01","tolElec":"3400"},{"amtYm":"201606","tolAmt":"1000.01","tolElec":"10300"},{"amtYm":"201607","tolAmt":"20012.10","tolElec":"50101"},{"amtYm":"201608","tolAmt":"8000.1","tolElec":"4000"},{"amtYm":"201609","tolAmt":"2000.99","tolElec":"34000"},{"amtYm":"201610","tolAmt":"3000.99","tolElec":"7800"}]}}}';
+   jsonString = 'tolElec@{"data":{"type":"000","returnMsg":"操作成功","requestCode":"GDT08116","amtLists":{"amtList":[{"amtYm":"201601","tolAmt":"2000.89999999999","tolElec":"40000"},{"amtYm":"201602","tolAmt":"900.12","tolElec":"10000"},{"amtYm":"201603","tolAmt":"4000.26","tolElec":"38900"},{"amtYm":"201604","tolAmt":"11000.11","tolElec":"19900"},{"amtYm":"201605","tolAmt":"40012.01","tolElec":"3400"},{"amtYm":"201606","tolAmt":"1000.01","tolElec":"10300"},{"amtYm":"201607","tolAmt":"20012.10","tolElec":"50101"},{"amtYm":"201608","tolAmt":"8000.1","tolElec":"4000"},{"amtYm":"201609","tolAmt":"2000.99","tolElec":"34000"},{"amtYm":"201610","tolAmt":"3000.99","tolElec":"7800"}]}}}';
     var dataArray = jsonString.split("@");
 	var obj = jQuery.parseJSON(dataArray[1]);
 	console.log(obj);
@@ -95,16 +95,16 @@ $(function (data, type) {
                         return this.value;
                     }
                 },
-                dateTimeLabelFormats: {
-                    millisecond: '%H:%M:%S.%L',
-                    second: '%H:%M:%S',
-                    minute: '%H:%M',
-                    hour: '%H:%M',
-                    day: '%m-%d',
-                    week: '%m-%d',
-                    month: '%Y-%m',
-                    year: '%Y'
-                },
+                // dateTimeLabelFormats: {
+//                     millisecond: '%H:%M:%S.%L',
+//                     second: '%H:%M:%S',
+//                     minute: '%H:%M',
+//                     hour: '%H:%M',
+//                     day: '%m-%d',
+//                     week: '%m-%d',
+//                     month: '%m',
+//                     year: '%Y'
+//                 },
                 categories: ymArray
             },
             plotOptions :{
@@ -112,8 +112,10 @@ $(function (data, type) {
                 line: {
 					enableMouseTracking: false,
 					dataLabels: {
-						enabled: true
+						enabled: true,
+						color : '#787878'
 					},
+					
                     // marker: {
   //                   	enabled: true
   //               	},
