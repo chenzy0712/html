@@ -1,32 +1,32 @@
-function generateAmtArray(amtLists) {
-	var tolAmtArray = [];
-	
-	for (var i = 0; i < amtLists.length; i++) {
-		tolAmtArray[i] = Number((parseFloat(amtLists[i].tolAmt)).toFixed(2));//保留两位小数
-	}
-	
-	return tolAmtArray;
-}
-
-function generatePowerArray(amtLists) {
-	var tolAmtArray = [];
-	
-	for (var i = 0; i < amtLists.length; i++) {
-		tolAmtArray[i] = parseInt(amtLists[i].tolElec);
-	}
-	
-	return tolAmtArray;
-}
-
-function generateYmArray(amtLists) {
-	var ymArray = [];
-	
-	for (var i = 0; i < amtLists.length; i++) {
-		ymArray[i] = amtLists[i].amtYm.slice(-2);//删除年份，X轴仅展示月
-	}
-	
-	return ymArray;
-}
+// function generateAmtArray(amtLists) {
+// 	var tolAmtArray = [];
+//
+// 	for (var i = 0; i < amtLists.length; i++) {
+// 		tolAmtArray[i] = Number((parseFloat(amtLists[i].tolAmt)).toFixed(2));//保留两位小数
+// 	}
+//
+// 	return tolAmtArray;
+// }
+//
+// function generatePowerArray(amtLists) {
+// 	var tolAmtArray = [];
+//
+// 	for (var i = 0; i < amtLists.length; i++) {
+// 		tolAmtArray[i] = parseInt(amtLists[i].tolElec);
+// 	}
+//
+// 	return tolAmtArray;
+// }
+//
+// function generateYmArray(amtLists) {
+// 	var ymArray = [];
+//
+// 	for (var i = 0; i < amtLists.length; i++) {
+// 		ymArray[i] = amtLists[i].amtYm.slice(-2);//删除年份，X轴仅展示月
+// 	}
+//
+// 	return ymArray;
+// }
 
 function getUnitName(type) {
     var unitName = "";
@@ -50,23 +50,34 @@ function getYaxisData(type, tolAmt, tolElec) {
 	}
 }
 
+var ymArray = [];
+var tolAmtArray = [];
+var tolElecArray = [];
+function generateChartData(amtLists) {
+	for (var i = 0; i < amtLists.length; i++) {
+		ymArray[i] = amtLists[i].amtYm.slice(-2);//删除年份，X轴仅展示月
+		tolAmtArray[i] = Number((parseFloat(amtLists[i].tolAmt)).toFixed(2));//保留两位小数
+		tolElecArray[i] = parseInt(amtLists[i].tolPq);
+	}
+	
+	return ymArray;
+}
+
 $(function (data) {
     Highcharts.setOptions({
         timezoneOffset: -8
     });
 
-   jsonString = 'tolPq@{"data":{"type":"000","returnMsg":"操作成功","requestCode":"GDT08116","amtLists":{"amtList":[{"amtYm":"201601","tolAmt":"2000.89999999999","tolElec":"40000"},{"amtYm":"201602","tolAmt":"900.12","tolElec":"10000"},{"amtYm":"201603","tolAmt":"4000.26","tolElec":"38900"},{"amtYm":"201604","tolAmt":"11000.11","tolElec":"19900"},{"amtYm":"201605","tolAmt":"40012.01","tolElec":"3400"},{"amtYm":"201606","tolAmt":"1000.01","tolElec":"10300"},{"amtYm":"201607","tolAmt":"20012.10","tolElec":"50101"},{"amtYm":"201608","tolAmt":"8000.1","tolElec":"4000"},{"amtYm":"201609","tolAmt":"2000.99","tolElec":"34000"},{"amtYm":"201610","tolAmt":"3000.99","tolElec":"7800"}]}}}';
+   jsonString = 'tolPq@{"data":{"returnCode":"0","returnMsg":"正常处理","requestCode":"JS110","dataInfo":{"consNo":"0400000404","consName":"汤山白水泥厂","orgNo":"3240101","orgName":"南京供电公司市区","elecAddr":"坟头排山","recordCount":"6","amtLists":[{"amtYm":"201512","tolAmt":"166439.5","tolPq":"151615"},{"amtYm":"201601","tolAmt":"128034.92","tolPq":"122299"},{"amtYm":"201602","tolAmt":"94035.14","tolPq":"62771"},{"amtYm":"201603","tolAmt":"125618.38","tolPq":"118060"},{"amtYm":"201604","tolAmt":"127326.72","tolPq":"119025"},{"amtYm":"201605","tolAmt":"141264.47","tolPq":"129825"}]}}}';
     var dataArray = jsonString.split("@");
 	var obj = jQuery.parseJSON(dataArray[1]);
-	console.log(obj);
 	
-	// console.log(obj.data.amtLists);
-	var tolAmtArray = generateAmtArray(obj.data.amtLists.amtList);
-	var tolElecArray = generatePowerArray(obj.data.amtLists.amtList);
-	var ymArray = generateYmArray(obj.data.amtLists.amtList);
+	
+	generateChartData(obj.data.dataInfo.amtLists);
 	var type = dataArray[0];
+	console.log(obj.data.dataInfo.amtLists);
 	console.log(tolAmtArray);
-// 	console.log(tolElecArray);
+	console.log(tolElecArray);
 // 	console.log(ymArray);
 	
         $('#container').highcharts({
